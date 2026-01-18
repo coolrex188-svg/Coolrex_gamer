@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Coolrex Gamer Community</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* GLOW LOGO + HEADER */
+header{
+    text-align:center;
+    padding:20px 10px;
+    background: linear-gradient(90deg,#00f2ff,#6a00ff);
+    box-shadow:0 0 20px #00f2ff;
+    border-bottom:2px solid #00f2ff;
+}
+header img{
+    width:120px;
+    border-radius:15px;
+    animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+    from{box-shadow:0 0 10px #00f2ff;}
+    to{box-shadow:0 0 30px #6a00ff;}
+}
+header h1{
+    margin-top:10px;
+    text-shadow:2px 2px #000;
+    font-size:26px;
+}
+header p{
+    margin-top:5px;
+    font-size:16px;
+    color:#00f2ff;
+}
+
+/* LOGIN PAGE */
+#loginPage{display:flex;justify-content:center;align-items:center;height:100vh;}
+.login-box{
+    background:rgba(0,0,0,0.9);
+    padding:40px;
+    border-radius:20px;
+    width:90%;
+    max-width:350px;
+    text-align:center;
+    box-shadow:0 0 40px #00f2ff;
+}
+.login-box input{
+    width:100%;
+    padding:12px;
+    margin:12px 0;
+    border:none;
+    border-radius:12px;
+    outline:none;
+    background:rgba(255,255,255,0.1);
+    color:white;
+}
+.login-box input::placeholder{color:#ccc;}
+.login-box button{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border:none;
+    border-radius:12px;
+    background:#00f2ff;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+.login-box button:hover{background:#6a00ff; color:white;}
+
+/* HOME PAGE */
+#homePage{display:none;padding-bottom:50px;}
+
+/* POSTS SECTION */
+.post-box{
+    width:90%;
+    max-width:600px;
+    margin:20px auto;
+    background:rgba(0,0,0,0.7);
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 0 25px #00f2ff;
+}
+.post-box textarea{
+    width:100%;
+    height:80px;
+    border-radius:12px;
+    padding:10px;
+    border:none;
+    outline:none;
+    background:rgba(255,255,255,0.1);
+    color:white;
+}
+.post-box input, .post-box button{margin-top:12px;}
+.post-box button{
+    padding:10px 20px;
+    background:#00f2ff;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.3s;
+}
+.post-box button:hover{background:#6a00ff;}
+
+/* POSTS CARDS */
+.posts{width:90%;max-width:600px;margin:auto;}
+.post{
+    background:rgba(0,0,0,0.6);
+    margin:15px 0;
+    padding:15px;
+    border-radius:20px;
+    box-shadow:0 0 20px #6a00ff;
+    transition:0.3s;
+}
+.post:hover{transform:scale(1.02);}
+.post img{
+    width:100%;
+    border-radius:12px;
+    margin-top:10px;
+}
+.admin{border:3px solid gold;position:relative;}
+.member{border:3px solid #00ff00;position:relative;}
+.member-badge{
+    position:absolute;
+    top:-10px;
+    right:-10px;
+    background:#00ff00;
+    color:black;
+    padding:3px 6px;
+    border-radius:6px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* ADMIN MODAL ADD MEMBER */
+#adminControls{
+    display:none;
+    width:90%;
+    max-width:600px;
+    margin:20px auto;
+    text-align:center;
+}
+#adminControls input{
+    width:60%;
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    background:rgba(255,255,255,0.1);
+    color:white;
+}
+#adminControls button{
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    background:#00f2ff;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+#adminControls button:hover{background:#6a00ff; color:white;}
+</style>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage">
+    <div class="login-box">
+        <h2>Login / Sign Up</h2>
+        <input type="text" id="username" placeholder="Enter Username">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="login()">Login</button>
+    </div>
+</div>
+
+<!-- HOME PAGE -->
+<div id="homePage">
+<header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" alt="YouTube Logo">
+    <h1>@coolrex_gamer</h1>
+    <p>Subscribe me on YouTube</p>
+</header>
+
+<!-- Admin add member -->
+<div id="adminControls">
+    <input type="text" id="memberName" placeholder="Enter username to add as Member">
+    <button onclick="addMember()">Add Member</button>
+</div>
+
+<!-- POST BOX -->
+<div class="post-box">
+    <textarea id="postText" placeholder="Create a post..."></textarea>
+    <input type="file" id="postImage">
+    <button onclick="createPost()">Post</button>
+</div>
+
+<!-- POSTS -->
+<div class="posts" id="posts">
+    <div class="post admin">
+        <strong>👑 Coolrex (Admin)</strong>
+        <p>Welcome to the new gaming community!</p>
+    </div>
+</div>
+</div>
+
+<script>
+let currentUser = "";
+let isAdmin = false;
+let members = [];
+
+function login(){
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    if(username==="" || password===""){alert("Enter username & password"); return;}
+    
+    if(username==="Coolrex" && password==="admin123"){
+        isAdmin=true;
+        document.getElementById("adminControls").style.display="block";
+    } else if(members.includes(username)){
+        isAdmin=false;
+    } else {
+        isAdmin=false;
+    }
+    currentUser=username;
+    document.getElementById("loginPage").style.display="none";
+    document.getElementById("homePage").style.display="block";
+}
+
+function createPost(){
+    const text = document.getElementById("postText").value;
+    const imgInput = document.getElementById("postImage");
+    if(text==="" && imgInput.files.length===0){alert("Write text or upload image"); return;}
+    
+    const postDiv=document.createElement("div");
+    postDiv.className="post";
+    
+    if(isAdmin) postDiv.classList.add("admin");
+    else if(members.includes(currentUser)) postDiv.classList.add("member");
+    
+    postDiv.innerHTML=`<strong>${currentUser}${isAdmin?" (Admin)":members.includes(currentUser)?" (Member)":""}</strong><p>${text}</p>`;
+    
+    if(members.includes(currentUser)){
+        const badge=document.createElement("div");
+        badge.className="member-badge";
+        badge.innerText="Member";
+        postDiv.appendChild(badge);
+    }
+    
+    const postsContainer=document.getElementById("posts");
+    if(isAdmin) postsContainer.prepend(postDiv);
+    else if(members.includes(currentUser)){
+        let firstMemberIndex=null;
+        const allPosts=document.querySelectorAll(".posts .post");
+        allPosts.forEach((p,i)=>{if(p.classList.contains("member") && firstMemberIndex===null) firstMemberIndex=i;});
+        if(firstMemberIndex!==null) allPosts[firstMemberIndex].before(postDiv);
+        else postsContainer.appendChild(postDiv);
+    } else postsContainer.appendChild(postDiv);
+    
+    document.getElementById("postText").value="";
+    imgInput.value="";
+}
+
+// Admin function to add member
+function addMember(){
+    const name=document.getElementById("memberName").value;
+    if(name===""){alert("Enter username to add"); return;}
+    if(!members.includes(name)) members.push(name);
+    alert(`${name} added as Member!`);
+    document.getElementById("memberName").value="";
+}
+</script>
+</body>
+</html>
